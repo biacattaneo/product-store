@@ -12,14 +12,14 @@ const SNACK_BAR_CONFIG: ValueProvider = {
     duration: 3000,
     horizontalPosition:'right',
     verticalPosition: 'top'
-  } as MatSnackBarConfig,
-}
+  } as MatSnackBarConfig
+};
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     provideAnimationsAsync(),
     provideHttpClient(),
-    SNACK_BAR_CONFIG,
+    SNACK_BAR_CONFIG
   ]
 };

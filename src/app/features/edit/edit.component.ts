@@ -16,23 +16,23 @@ import { Product } from '../../shared/interfaces/product.interface';
   styleUrl: './edit.component.scss'
 })
 export class EditComponent {
-  productsService = inject(ProductsService)
+  productsService = inject(ProductsService);
   matSnackBar = inject(MatSnackBar);
   router = inject(Router);
 
-  product: Product = inject(ActivatedRoute).snapshot.data['product']
+  product: Product = inject(ActivatedRoute).snapshot.data['product'];
 
   form = new FormGroup({
     title: new FormControl<string>(this.product.title, {nonNullable: true, validators: Validators.required
-    }),
+    })
   });
 
   onSubmit(){
     this.productsService.put(this.product.id,{
       title: this.form.controls.title.value
     }).subscribe(() => {
-      this.matSnackBar.open('edit', 'ok',)
-        this.router.navigateByUrl('/')
+      this.matSnackBar.open('edit', 'ok');
+        this.router.navigateByUrl('/');
     });
   }
 }

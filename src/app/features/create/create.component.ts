@@ -1,9 +1,9 @@
 import { routes } from './../../app.routes';
 import { ProductsService } from './../../shared/services/products.service';
 import { Component, inject } from '@angular/core';
-import { MatFormFieldModule} from '@angular/material/form-field'
-import { MatInputModule} from '@angular/material/input'
-import { MatSnackBar} from '@angular/material/snack-bar'
+import { MatFormFieldModule} from '@angular/material/form-field';
+import { MatInputModule} from '@angular/material/input';
+import { MatSnackBar} from '@angular/material/snack-bar';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { validateVerticalPosition } from '@angular/cdk/overlay';
@@ -17,21 +17,21 @@ import { Router } from '@angular/router';
   styleUrl: './create.component.scss'
 })
 export class CreateComponent {
-  productsService = inject(ProductsService)
+  productsService = inject(ProductsService);
   matSnackBar = inject(MatSnackBar);
   router = inject(Router);
 
   form = new FormGroup({
     title: new FormControl<string>('', {nonNullable: true, validators: Validators.required
-    }),
+    })
   });
 
   onSubmit(){
     this.productsService.post({
       title: this.form.controls.title.value
     }).subscribe(() => {
-      this.matSnackBar.open('sucess', 'ok',)
-        this.router.navigateByUrl('/')
+      this.matSnackBar.open('sucess', 'ok');
+        this.router.navigateByUrl('/');
     });
   }
 }
