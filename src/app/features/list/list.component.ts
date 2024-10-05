@@ -6,25 +6,37 @@ import { CardComponent } from './components/card/card.component';
 import { Router, RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-confirmation-dialog',
   template: `
   <h2 mat-dialog-title>Delete file</h2>
 <mat-dialog-content>
-  Would you like to delete cat.jpeg?
+  Would you like to delete?
 </mat-dialog-content>
-<mat-dialog-actions>
-  <button mat-button mat-dialog-close>No</button>
-  <button mat-button mat-dialog-close cdkFocusInitial>Ok</button>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onNo()">No</button>
+  <button mat-raised-button color="accent" (click)="onYes()" cdkFocusInitial>yes</button>
 </mat-dialog-actions>
 `,
   standalone: true,
   imports: [MatButtonModule, MatDialogModule],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
+// export class ConfirmationDialogComponent {
+//   readonly dialogRef = inject(MatDialogRef<ConfirmationDialogComponent>);
+// }
 export class ConfirmationDialogComponent {
-  readonly dialogRef = inject(MatDialogRef<ConfirmationDialogComponent>);
+  matDialogRef = inject(MatDialogRef);
+
+  onNo() {
+    this.matDialogRef.close(false);
+  }
+  onYes() {
+    this.matDialogRef.close(true);
+  }
+
 }
 
 @Component({
@@ -54,6 +66,15 @@ export class ListComponent {
   }
 
   onDelete(product: Product) {
-    this.matDialog.open(ConfirmationDialogComponent).afterClosed().subscribe((data) => {console.log(data)});
+    this.matDialog.open(ConfirmationDialogComponent)
+    .afterClosed()
+    .pipe(
+      filter((answer) => answer === true),
+    )
+    .subscribe(() => {
+        this.productsService.delete(product.id).subscribe((products) => {
+          this.ngOnInit();
+        })
+    });
   }
 }
