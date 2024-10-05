@@ -18,8 +18,8 @@ import { NoItemsComponent } from './components/no-items/no-items.component';
 })
 export class ListComponent {
 
-  products = signal<Product[]>([]
-    // inject(ActivatedRoute).snapshot.data['products']
+  products = signal<Product[]>(
+    inject(ActivatedRoute).snapshot.data['products']
   );
 
   productsService = inject(ProductsService);

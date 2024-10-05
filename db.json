@@ -1,16 +1,16 @@
 {
   "products": [
     {
-      "title": "Produto de teste",
-      "id": "1"
+      "id": "51fa",
+      "title": "teste1"
     },
     {
-      "id": "05c4",
-      "title": "cyu"
+      "id": "e56f",
+      "title": "teste2"
     },
     {
-      "id": "538d",
-      "isTrusted": true
+      "id": "f1f9",
+      "title": "teste3"
     }
   ]
 }
