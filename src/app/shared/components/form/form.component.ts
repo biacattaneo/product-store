@@ -16,28 +16,27 @@ import { ProductsService } from '../../services/products.service';
   styleUrl: './form.component.scss'
 })
 export class FormComponent {
-  public productsService = inject(ProductsService);
-  public matSnackBar = inject(MatSnackBar);
-  public router = inject(Router);
+  productsService = inject(ProductsService);
+  matSnackBar = inject(MatSnackBar);
+  router = inject(Router);
 
-  // product: Product = inject(ActivatedRoute).snapshot.data['product']
-  public product = input<Product | null>(null);
+  product = input<Product | null>(null);
 
-  public form!: FormGroup;
+  form!: FormGroup;
 
   @Output() submit = new EventEmitter<Product>();
 
-  public ngOnInit(): void {
+  ngOnInit(): void {
     this.form = new FormGroup({
     title: new FormControl<string>(this.product()?.title ?? '',
     {
-      nonNullable: true,
+      // nonNullable: true,
       validators: Validators.required
     })
   });
 }
 
-  public onSubmit() {
+  onSubmit() {
     const product = this.form.value as Product;
     this.submit.emit(product);
   }
